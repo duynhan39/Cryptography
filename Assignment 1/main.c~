@@ -1,0 +1,60 @@
+#include "gmphw.h"
+
+void testEea(mpz_t const a, mpz_t const b, mpz_t const d, mpz_t const u, mpz_t const v);
+
+int main(int argc, char* argv[]) {
+	FILE* f;
+
+        mpz_t a, b, u, v, d;
+        mpz_init(u);
+        mpz_init(v);
+        mpz_init(d);
+        mpz_init_set_ui(a, 28);
+        mpz_init_set_ui(b, 24);
+
+        //gcd(a, b);
+        eea(u, v, d, a, b);
+        gcd(a, b, d);
+        gmp_printf("%Zd %Zd %Zd\n", u, v, d);
+	testEea(a, b, d, u, v);
+	
+	int n;
+	printf("Prime p:");
+	mpz_t p;
+	mpz_init(p);
+	gmp_scanf("%Zd", p);
+	
+	printf("Input number of factor here: ");
+	scanf("%d", &n);
+	printf("And they are:\n");
+	mpz_t* factors;
+	factors = malloc(sizeof(mpz_t) * n);
+	for(int i=0; i<n; i++) {
+		int m;
+		mpz_t z;
+		mpz_init(z);
+		gmp_scanf("%Zd", z);
+		mpz_init_set(factors[i], z);
+	}
+	
+	mpz_t rop;
+	mpz_init(rop);
+	primitive_root(rop, p, n, factors);
+	gmp_printf("Primitive root of %Zd is %Zd\n", p, rop);
+
+	return 0;
+}
+
+void testEea(mpz_t const a, mpz_t const b, mpz_t const d, mpz_t const u, mpz_t const v) {
+	mpz_t ma, mb, result;
+	mpz_init(ma);
+	mpz_init(mb);
+	mpz_init(result);
+	mpz_mul(ma, a, u);
+	mpz_mul(mb, b, v);
+	mpz_add(result, ma, mb);
+	if(mpz_cmp(result, d))
+		printf("Incorrect!\n");
+	else
+		printf("Correct!\n");
+}

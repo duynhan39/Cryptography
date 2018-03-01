@@ -1,0 +1,9 @@
+#Duy Nhan Cao
+main: main.o
+	gcc -o main main.o -lgmp
+
+main.o: main.c gmphw.h 
+	gcc -c main.c
+
+clean:
+	rm -f *.o main *~

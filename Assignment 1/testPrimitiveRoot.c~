@@ -1,0 +1,39 @@
+// Duy Nhan Cao
+// File: testPrimitiveRoot.c
+
+#include <fstream>
+#include "cryp.h"
+
+int main (int argc, char * argv[]) {
+  File* file;
+  file = fopen(argv[0], "r");
+  
+  int n;
+  mpz_t p;
+  mpz_init(p);
+  mpz_t *factors;
+  factors = malloc(sizeof(mpz_t) * n);
+  
+  gmp_fscanf(file, "%Zd", p);
+  fscanf("%d", n);
+  
+  for(int i=0; i<n; i++) {
+    gmp_fscanf(file, "%Zd", factors[i]);
+  }
+	
+  mpz_t rAns;
+  mpz_init(rAns);
+  gmp_fscanf(file, "%Zd", rAns);
+
+  mpz_t rop;
+  mpz_init(rop);
+  primitive_root(rop, p, n, factors);
+
+  if(mpz_cmp(rAns, rop))
+		printf("Incorrect!\n");
+	else
+		printf("Correct!\n");
+
+  fclose(file);
+  return 0;
+}
