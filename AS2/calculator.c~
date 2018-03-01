@@ -1,0 +1,16 @@
+#include "gmp.h"
+
+int main() {
+  mpz_t p, g, a, b, ans;
+  mpz_init_set_ui(p, 1373);
+  mpz_init_set_ui(g, 2);
+  mpz_init_set_ui(a, 947);
+  mpz_init_set_ui(b, 0);
+  mpz_init(ans);
+
+  mpz_powm(ans, g, a, p);
+
+  gmp_printf("%Zd", ans);
+
+  return 0;
+}
