@@ -1,16 +1,50 @@
 #include "gmp.h"
 
 int main() {
-  mpz_t p, g, a, b, ans;
+  mpz_t p, g, a, b, A, B, k, m, c1, c2, num, x, xp, p2;
   mpz_init_set_ui(p, 1373);
+  mpz_init_set_ui(p2, 1371);
   mpz_init_set_ui(g, 2);
   mpz_init_set_ui(a, 947);
-  mpz_init_set_ui(b, 0);
-  mpz_init(ans);
+  mpz_init_set_ui(b, 716);
+  mpz_init_set_ui(m, 583);
+  mpz_init_set_ui(k, 877);
+  mpz_init(A);
+  mpz_init(B);
+  mpz_init(c1);
+  mpz_init(c2);
+  mpz_init(num);
+  mpz_init(x);
+  mpz_init(xp);
 
-  mpz_powm(ans, g, a, p);
+  mpz_powm(A, g, a, p);
 
-  gmp_printf("%Zd", ans);
+  mpz_powm(B, g, b, p);
+
+  mpz_powm(c1, g, k, p);
+
+  mpz_powm(x, c1, a, p);
+
+  mpz_powm(xp, x, p2, p);
+
+  mpz_powm(num, B, k, p);
+
+  mpz_mul(c2, m, num);
+  mpz_tdiv_r(c2, c2, p);
+
+  mpz_set_ui(c1, 661);
+  mpz_set_ui(c2, 1325);
+
+  mpz_mul(m, c2, xp);
+  mpz_tdiv_r(m, m, p);
+
+  gmp_printf("A: %Zd\n", A);
+  gmp_printf("c1: %Zd\n", c1);
+  gmp_printf("c2: %Zd\n", c2);
+  gmp_printf("x: %Zd\n", x);
+  gmp_printf("x^-1: %Zd\n", xp);
+  gmp_printf("m: %Zd\n", m);
+  
 
   return 0;
 }
