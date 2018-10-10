@@ -1,8 +1,0 @@
-// Duy Nhan Cao
-// File: testPrimitiveRoot.c
-
-#include <fstream>
-#include "cryp.h"
-
-int main (int argc, char * argv[])
-{
